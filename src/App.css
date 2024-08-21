@@ -16,9 +16,10 @@
   }
   p {
     font-size: 2rem;
+    padding-bottom: 1rem;
     text-align: center;
     transform: rotate(10deg);
-    text-decoration: underline 0.3rem #7ac4ae;
+    text-decoration: underline 0.3rem var(--color-primary);
   }
 }
 
@@ -26,7 +27,7 @@ h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  border-top: 3px solid #eee;
+  border-top: 3px solid var(--color-light-grey);
   padding-top: 2rem;
   margin-top: 1rem;
 }
@@ -36,20 +37,20 @@ button {
   padding: 0.5rem 2rem;
   border-radius: 5rem;
   border: none;
-  background-color: #7ac4ae;
+  background-color: var(--color-primary);
   cursor: pointer;
   transition: all 0.3s;
 
   &.done-btn {
-    background-color: #7ac4ae;
+    background-color: var(--color-primary);
   }
 
   &.remove-btn {
-    background-color: #f0826f;
+    background-color: var(--color-red);
   }
 
   &.grey {
-    background-color: #bbb;
+    background-color: var(--color-grey);
   }
 
   &:hover {
@@ -72,7 +73,7 @@ form {
     font-size: 2rem;
     border-radius: 5rem;
     border: none;
-    background-color: #eeeeee;
+    background-color: var(--color-light-grey);
   }
 }
 
@@ -95,7 +96,7 @@ ul {
       }
 
       &.done {
-        text-decoration: line-through 0.3rem #f0826f;
+        text-decoration: line-through 0.3rem var(--color-red);
       }
     }
 
@@ -107,7 +108,7 @@ ul {
 }
 
 .clear-container {
-  border-top: 3px solid #eee;
+  border-top: 3px solid var(--color-light-grey);
   padding-top: 2rem;
   margin-top: 2rem;
 }

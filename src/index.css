@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 :root {
   --font-primary: "Nanum Pen Script", cursive;
+  --color-primary: #7ac4ae;
+  --color-secondary: thistle;
+  --color-red: #f0826f;
+  --color-light-grey: #eee;
+  --color-grey: #bbb;
 }
 
 * {
@@ -14,5 +19,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: thistle;
+  background-color: var(--color-secondary);
 }
