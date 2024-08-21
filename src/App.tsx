@@ -87,20 +87,13 @@ function App() {
           <li key={i}>
             <h3 className={task.done ? "done" : "todo"}>{task.task}</h3>
             <button
-              onClick={() => {
-                handleDone(task, i);
-              }}
+              onClick={() => handleDone(task, i)}
               // button appear grey if done
               className={`done-btn ${task.done ? "grey" : ""}`}
             >
               Done
             </button>
-            <button
-              onClick={() => {
-                handleRemove(task, i);
-              }}
-              className="remove-btn"
-            >
+            <button onClick={() => handleRemove(task, i)} className="remove-btn">
               Remove
             </button>
           </li>
