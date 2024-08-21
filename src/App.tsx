@@ -2,20 +2,24 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [newTask, setNewTask] = useState<string>("");
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [newTask, setNewTask] = useState<object>({});
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  //define task object
+  interface Task {
+    task: string;
+    done: boolean;
+  }
 
   const handleSubmit = (event: any) => {
     // to not refresh page
     event.preventDefault();
     // set the tasks to the current tasks + new task
-    setTasks((tasks) => [...tasks, newTask]);
+    let updatedTasks = [...tasks, newTask];
+    setTasks(updatedTasks);
     // to empty input field
     event.target.reset();
   };
-
-  // change individual h3 class to done
-  const updateStatus = (event: any) => {};
 
   // filter out clicked task for tasks list, set tasks again
   const handleRemove = (i: number) => {
@@ -30,7 +34,9 @@ function App() {
       <form onSubmit={handleSubmit}>
         <input
           onChange={(e) => {
-            setNewTask(e.target.value);
+            // set new task
+            let task: Task = { task: e.target.value, done: false };
+            setNewTask(task);
           }}
           type="text"
           placeholder="Enter task..."
@@ -43,8 +49,18 @@ function App() {
       <ul>
         {tasks.map((task, i) => (
           <li key={i}>
-            <h3 className="todo">{task}</h3>
-            <button onClick={updateStatus} className="done-btn">
+            <h3 className={task.done ? "done" : "todo"}>{task.task}</h3>
+            <button
+              onClick={() => {
+                // set done to true
+                task.done = true;
+                let updatedTasks = [...tasks];
+                // update the tasks by splicing in the updated task on same index
+                updatedTasks.splice(i, 1, task);
+                setTasks([...updatedTasks]);
+              }}
+              className="done-btn"
+            >
               Done
             </button>
             <button
