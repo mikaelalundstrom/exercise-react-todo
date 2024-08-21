@@ -15,9 +15,7 @@ function App() {
   };
 
   // change individual h3 class to done
-  const updateStatus = (event: any) => {
-    event.target.parentElement.children[0].className = "done";
-  };
+  const updateStatus = (event: any) => {};
 
   // filter out clicked task for tasks list, set tasks again
   const handleRemove = (i: number) => {
@@ -46,11 +44,14 @@ function App() {
         {tasks.map((task, i) => (
           <li key={i}>
             <h3 className="todo">{task}</h3>
-            <button onClick={updateStatus}>Done</button>
+            <button onClick={updateStatus} className="done-btn">
+              Done
+            </button>
             <button
               onClick={() => {
                 handleRemove(i);
               }}
+              className="remove-btn"
             >
               Remove
             </button>
