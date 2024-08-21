@@ -1,71 +1,103 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [newTask, setNewTask] = useState<object>({});
+  const [newTask, setNewTask] = useState<Task>({ task: "", done: false });
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [todoCounter, setTodoCounter] = useState<number>(0);
 
-  //define task object
+  //interface task object
   interface Task {
     task: string;
     done: boolean;
   }
 
-  const handleSubmit = (event: any) => {
-    // to not refresh page
+  // ONSUBMIT:  ADD NEWTASK TO TASKS LIST
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setTodoCounter(todoCounter + 1);
     // set the tasks to the current tasks + new task
-    let updatedTasks = [...tasks, newTask];
+    let updatedTasks: Task[] = [...tasks, newTask];
     setTasks(updatedTasks);
     // to empty input field
-    event.target.reset();
+    const resetForm = event.target as HTMLFormElement;
+    resetForm.reset();
   };
 
-  // filter out clicked task for tasks list, set tasks again
-  const handleRemove = (i: number) => {
+  // ONCHANGE: SAVE INPUT TO NEWTASK
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const task: Task = { task: event.target.value, done: false };
+    setNewTask(task);
+  };
+
+  // ONCLICK: MARK TASK AS DONE
+  const handleDone = (task: Task, i: number) => {
+    setTodoCounter(todoCounter - 1);
+
+    task.done = true;
+    let updatedTasks = [...tasks];
+    // update the tasks by splicing in the updated task on same index
+    updatedTasks.splice(i, 1, task);
+    setTasks([...updatedTasks]);
+  };
+
+  // ONCLICK: REMOVE TASK
+  const handleRemove = (task: Task, i: number) => {
+    // minus task from counter if not done
+    if (task.done === false) {
+      setTodoCounter(todoCounter - 1);
+    }
+    // filter out clicked task for tasks list, set tasks again
     const updatedTasks = tasks.filter((task, index) => index !== i);
+    setTasks(updatedTasks);
+  };
+
+  // ONCLICK: CLEAR (REMOVE) DONE TASKS
+  const handleClear = () => {
+    // update tasks with only those that aren't done
+    const updatedTasks = tasks.filter((task) => task.done === false);
     setTasks(updatedTasks);
   };
 
   return (
     <>
-      <h1>To-do List</h1>
+      <div className="h1-counter-container">
+        <h1>To-do List</h1>
+        {/* show different message if counter is 0 */}
+        {todoCounter === 0 ? (
+          <p>
+            No tasks <br /> to do!
+          </p>
+        ) : (
+          <p>
+            # of tasks <br /> to do: {todoCounter}
+          </p>
+        )}
+      </div>
       <h2>Write a New Task:</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          onChange={(e) => {
-            // set new task
-            let task: Task = { task: e.target.value, done: false };
-            setNewTask(task);
-          }}
-          type="text"
-          placeholder="Enter task..."
-          required
-        />
+        <input onChange={handleInputChange} type="text" placeholder="Enter task..." required />
         <button>Add</button>
       </form>
-
-      <h2>Your Tasks:</h2>
+      {/* only show heading if tasks isn't empty */}
+      {tasks.length === 0 ? null : <h2>Your Tasks:</h2>}
       <ul>
         {tasks.map((task, i) => (
           <li key={i}>
             <h3 className={task.done ? "done" : "todo"}>{task.task}</h3>
             <button
               onClick={() => {
-                // set done to true
-                task.done = true;
-                let updatedTasks = [...tasks];
-                // update the tasks by splicing in the updated task on same index
-                updatedTasks.splice(i, 1, task);
-                setTasks([...updatedTasks]);
+                handleDone(task, i);
               }}
-              className="done-btn"
+              // button appear grey if done
+              className={`done-btn ${task.done ? "grey" : ""}`}
             >
               Done
             </button>
             <button
               onClick={() => {
-                handleRemove(i);
+                handleRemove(task, i);
               }}
               className="remove-btn"
             >
@@ -74,6 +106,14 @@ function App() {
           </li>
         ))}
       </ul>
+      {/* only show if at least one task is marked as done */}
+      {tasks.some((task) => task.done === true) ? (
+        <div className="clear-container">
+          <button onClick={handleClear} className="remove-btn">
+            Clear Done
+          </button>
+        </div>
+      ) : null}
     </>
   );
 }

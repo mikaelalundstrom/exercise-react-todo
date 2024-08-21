@@ -7,17 +7,28 @@
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-  font-size: 4rem;
-  border-bottom: 3px solid #eee;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+.h1-counter-container {
+  display: flex;
+  align-items: center;
+  h1 {
+    flex: 1;
+    font-size: 4rem;
+  }
+  p {
+    font-size: 2rem;
+    text-align: center;
+    transform: rotate(10deg);
+    text-decoration: underline 0.3rem #7ac4ae;
+  }
 }
 
 h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   font-weight: normal;
+  border-top: 3px solid #eee;
+  padding-top: 2rem;
+  margin-top: 1rem;
 }
 
 button {
@@ -26,15 +37,34 @@ button {
   border-radius: 5rem;
   border: none;
   background-color: #7ac4ae;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &.done-btn {
+    background-color: #7ac4ae;
+  }
+
+  &.remove-btn {
+    background-color: #f0826f;
+  }
+
+  &.grey {
+    background-color: #bbb;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 form {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-bottom: 3px solid #eee;
-  padding-bottom: 2rem;
-  margin-bottom: 1rem;
+
+  & + h2 {
+    margin-top: 2.5rem;
+  }
 
   input {
     flex: 1;
@@ -65,21 +95,19 @@ ul {
       }
 
       &.done {
-        text-decoration: line-through 3px #f0826f;
+        text-decoration: line-through 0.3rem #f0826f;
       }
     }
 
     button {
       font-size: 1.5rem;
       padding: 0.5rem 1rem;
-
-      &.done-btn {
-        background-color: #7ac4ae;
-      }
-
-      &.remove-btn {
-        background-color: #f0826f;
-      }
     }
   }
+}
+
+.clear-container {
+  border-top: 3px solid #eee;
+  padding-top: 2rem;
+  margin-top: 2rem;
 }
