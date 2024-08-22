@@ -48,9 +48,11 @@ function App() {
     if (task.done === false) {
       setTodoCounter(todoCounter - 1);
     }
-    // filter out clicked task for tasks list, set tasks again
-    const updatedTasks = tasks.filter((task, index) => index !== i);
-    setTasks(updatedTasks);
+
+    let updatedTasks = [...tasks];
+    // update the tasks by splicing away task to be removed
+    updatedTasks.splice(i, 1);
+    setTasks([...updatedTasks]);
   };
 
   // ONCLICK: CLEAR (REMOVE) DONE TASKS
