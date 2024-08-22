@@ -2,7 +2,7 @@
 :root {
   --font-primary: "Nanum Pen Script", cursive;
   --color-primary: #7ac4ae;
-  --color-secondary: thistle;
+  --color-secondary: #c6bfd8;
   --color-red: #f0826f;
   --color-light-grey: #eee;
   --color-grey: #bbb;
@@ -17,7 +17,7 @@
 
 body {
   display: flex;
-  align-items: center;
   justify-content: center;
   background-color: var(--color-secondary);
+  min-height: 100vh;
 }

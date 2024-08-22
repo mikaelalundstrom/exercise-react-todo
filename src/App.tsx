@@ -6,11 +6,11 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [todoCounter, setTodoCounter] = useState<number>(0);
 
-  //interface task object
-  interface Task {
+  // type task object
+  type Task = {
     task: string;
     done: boolean;
-  }
+  };
 
   // ONSUBMIT:  ADD NEWTASK TO TASKS LIST
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
