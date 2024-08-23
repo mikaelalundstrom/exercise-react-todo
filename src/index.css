@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+@import url("./App.css");
 :root {
   --font-primary: "Nanum Pen Script", cursive;
   --color-primary: #7ac4ae;

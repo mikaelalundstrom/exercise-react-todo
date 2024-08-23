@@ -1,28 +1,27 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import "./App.css";
+
+// INTERFACE
+interface Task {
+  task: string;
+  done: boolean;
+}
 
 function App() {
   const [newTask, setNewTask] = useState<Task>({ task: "", done: false });
   const [tasks, setTasks] = useState<Task[]>([]);
   const [todoCounter, setTodoCounter] = useState<number>(0);
 
-  // type task object
-  type Task = {
-    task: string;
-    done: boolean;
-  };
-
   // ONSUBMIT:  ADD NEWTASK TO TASKS LIST
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    // set counter +1
     setTodoCounter(todoCounter + 1);
     // set the tasks to the current tasks + new task
     let updatedTasks: Task[] = [...tasks, newTask];
     setTasks(updatedTasks);
     // to empty input field
-    const resetForm = event.target as HTMLFormElement;
-    resetForm.reset();
+    const formElem = event.target as HTMLFormElement;
+    formElem.reset();
   };
 
   // ONCHANGE: SAVE INPUT TO NEWTASK
@@ -33,8 +32,9 @@ function App() {
 
   // ONCLICK: MARK TASK AS DONE
   const handleDone = (task: Task, i: number) => {
+    // set counter -1
     setTodoCounter(todoCounter - 1);
-
+    // set done as true
     task.done = true;
     let updatedTasks = [...tasks];
     // update the tasks by splicing in the updated task on same index
@@ -44,8 +44,8 @@ function App() {
 
   // ONCLICK: REMOVE TASK
   const handleRemove = (task: Task, i: number) => {
-    // minus task from counter if not done
     if (task.done === false) {
+      // set counter -1
       setTodoCounter(todoCounter - 1);
     }
 
